@@ -126,7 +126,7 @@ function BlockEmployee(props) {
                 label=""
                 name="group1"
                 type={type}
-                checked={(props.blocked)}
+                defaultChecked={(props.blocked)}
                 id={`inline-${type}-1`}
               />
             </div>

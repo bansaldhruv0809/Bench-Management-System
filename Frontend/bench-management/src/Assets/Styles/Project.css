@@ -79,7 +79,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  margin: 11% auto;
+  margin: 10% auto;
   width: 376px;
   line-height: 1.5;
   border-radius: 4px;
@@ -368,7 +368,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 18vw;
+  width: 17.7vw;
   margin-left: 0%;
   color: white;
   background-color: #01070d;
@@ -493,9 +493,9 @@
   margin-top: 1%;
 }
 
-.skillsLabel {
-  font-weight: 500;
-  opacity: 0.8;
+.labelFont {
+  font-weight: 700;
+  opacity: 0.9;
 }
 
 .button6 {
@@ -522,8 +522,12 @@
 
 .accordian {
   margin-top: 10%;
+  margin-right: 5%;
 }
 
+.form-check-label:hover {
+  cursor: pointer;
+}
 /* //////////////////////////////////////CSS for NAVBAR/////////////////////////////////////////////// */
 
 .NavbarComponent {
@@ -531,7 +535,7 @@
   flex-direction: row;
   margin: 0px;
   padding: 0px;
-  height: 10%;
+  height: 9.2%;
   width: 100%;
   background-color: #020911;
   color: white;
@@ -570,19 +574,19 @@
 
 .search {
   width: 34vw;
-  height: 6.2vh;
+  height: 6vh;
   margin-top: 0%;
   margin-left: 0px;
   padding-left: 4.5%;
   border-top-left-radius: 0px;
   background-color: #020911;
   border: grey;
-  border-width: 0.8px;
+  border-width: 1px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   color: white;
   border-style: solid;
-
+  outline: none;
 }
 
 .search-icon {
@@ -600,6 +604,9 @@
   background-color: white;
 }
 
+input[type=text]:focus {
+  border: 1.5px solid white;
+}
 
 .profile {
   background-color: #020911;
@@ -657,7 +664,7 @@
 .bottom {
   display: flex;
   flex-direction: row;
-  gap: 0.2%;
+  gap: 0.28%;
 }
 
 .bottom-right {
@@ -764,7 +771,10 @@
   text-align: left;
   color: #489fb5;
   width: 18%;
+}
 
+.textFontTable {
+  font-weight: 500;
 }
 
 .table-align-left {

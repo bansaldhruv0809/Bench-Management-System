@@ -62,7 +62,7 @@ function UpdateEmployee(props) {
     return (
         <>
             <button className='button5' onClick={() => { handleShow(); showDetail(props.id); }}>
-                <i class="fa-solid fa-circle-minus"></i>
+                <i className="fa-solid fa-circle-minus"></i>
             </button>
 
 

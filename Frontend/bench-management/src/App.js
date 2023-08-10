@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
+import {useEffect} from 'react';
 import AuthState from './components/Global/AuthState.js';
 import ViewEmployee from './components/Pages/ViewEmployee.js';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +25,12 @@ function App() {
     { path: "/setup2fa", element: <NewUser /> },
     { path: "/verify2fa", element: <ExistingUser /> }
   ]);
+
+  // preventing any forced refresh
+  const onKeyDown = event => {
+        if(event.ctrlKey && event.key > 'a' && event.key < 'z') event.preventDefault();
+      }
+  document.addEventListener('keydown', onKeyDown);
 
   return (
     <div className="App">

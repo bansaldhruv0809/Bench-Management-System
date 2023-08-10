@@ -137,7 +137,7 @@ function ViewReport(props) {
               </button>
               <h5 className="h5heading">Representation of Business Units on the basis of Locations.</h5>
               <button className="reload" type="button" onClick={handleRefresh} >
-                <i class="fa-solid fa-rotate-right fa-lg"></i>
+                <i className="fa-solid fa-rotate-right fa-lg"></i>
               </button>
             </div>
           }

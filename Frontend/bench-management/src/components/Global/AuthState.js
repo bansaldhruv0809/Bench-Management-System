@@ -116,7 +116,9 @@ export default function AuthState(props) {
         setManagerId(-1);
         resetDefault();
         console.log("logged out successfully")
-    } const [file, setFile] = useState([]);
+    }
+
+    const [file, setFile] = useState([]);
 
     return (
         <AuthContext.Provider value={{

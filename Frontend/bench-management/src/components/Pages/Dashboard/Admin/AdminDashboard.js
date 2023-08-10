@@ -26,12 +26,12 @@ export default function AdminDashboard() {
     navigate("/viewReport");
   };
 
-const handleUnauthorized = () => {
-  navigate("/");
-  return (
-    <Login/>
-  )
-}
+  const handleUnauthorized = () => {
+    navigate("/");
+    return (
+      <Login />
+    )
+  }
 
   const [refreshData, setRefresh] = useState(false)
   function handleRefresh() {
@@ -43,9 +43,9 @@ const handleUnauthorized = () => {
     authData.setShowSearchBar(true)
     try {
       await axios.post(
-        "http://localhost:2538/api/dto/get/filterd", authData.requestDto,{
-          headers : {Authorization : authData.accessToken}
-        }).then((res) => {
+        "http://localhost:2538/api/dto/get/filterd", authData.requestDto, {
+        headers: { Authorization: authData.accessToken }
+      }).then((res) => {
         authData.setNewData(res.data);
       });
     }
@@ -62,9 +62,9 @@ const handleUnauthorized = () => {
     try {
       //count emp locatin wise 
       await axios.get(
-        "http://localhost:2538/api/empdetails/get/countOfEachLocation",{
-          headers : {Authorization : authData.accessToken}
-        }).then((res) => {
+        "http://localhost:2538/api/empdetails/get/countOfEachLocation", {
+        headers: { Authorization: authData.accessToken }
+      }).then((res) => {
         let tempData = [];
         res.data.forEach(element => {
           tempData.push(parseInt(element.count));
@@ -79,7 +79,7 @@ const handleUnauthorized = () => {
     fetchCountApis();
   }, [])
 
-  const allowData = (emp) => {
+  const allowData = (emp,key) => {
     // console.log("emp "+JSON.stringify(emp))
     //----------Check for BU-----------------------------//
     let okBU = false;
@@ -115,7 +115,7 @@ const handleUnauthorized = () => {
   };
 
   const [file, setFile] = useState([]);
-  const inputFile = useRef(null);
+  // const inputFile = useRef(null);
   const handleChange = (e) => {
     setFile([...file, e.target.files[0]]);
   };
@@ -180,148 +180,148 @@ const handleUnauthorized = () => {
   //-----------------------------------------
 
   return (
-    authData.isAuthentication === true && authData.otpVerify === true? 
-    ( 
-      <>
-    <div className="window">
-      <div className="top">
-        <Navbar />
-      </div>
-      <div className="bottom">
-        <div className="bottom-left">
-          <SideBar />
-        </div>
-        <div className="bottom-right">
-          <div className="actions-admin">
-            <p className="employees">EMPLOYEES</p>
-            <div className="buttons">
-              <ViewManager/>
-              <button className="button2" onClick={handleReport}>
-                <i className="fa-solid fa-chart-simple"></i> &nbsp; VIEW REPORT
-              </button>
-              <button className="reload" type="button" onClick={handleRefresh}>
-                <i className="fa-solid fa-rotate-right fa-lg"></i>
-              </button>
+    authData.isAuthentication === true && authData.otpVerify === true ?
+      (
+        <>
+          <div className="window">
+            <div className="top">
+              <Navbar />
             </div>
-          </div>
-          <div className="table">
-            <div className="table-format">
-              <table className="table">
-                <thead className="thread1">
-                  <tr className="tableHeader">
-                    <th className="table-align-left" scope="col">
-                      Block
-                    </th>
-                    <th className="table-align-left" scope="col">
-                      <button
-                        className={getClassNamesFor("employeeName")}
-                        type="button"
-                        onClick={() => requestSort("employeeName")}
-                      >
-                        Name
-                      </button>
-                    </th>
-                    <th className="table-align-left" scope="col">
-                      Email
-                    </th>
-                    <th className="table-align-left" scope="col">
-                      <button
-                        className={getClassNamesFor("location")}
-                        type="button"
-                        onClick={() => requestSort("location")}
-                      >
-                        Location
-                      </button>
-                    </th>
-                    <th className="table-align-left" scope="col">
-                      <button
-                        className={getClassNamesFor("benchPeriod")}
-                        type="button"
-                        onClick={() => requestSort("benchPeriod")}
-                      >
-                        Bench_Aging
-                      </button>
-                    </th>
-                    <th className="table-align-left" scope="col">
-                      Resume
-                    </th>
-                    <th className="table-align-left" scope="col">
-                      Remove
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="thread1">
-                  {authData.newData &&
-                    authData.newData.map((emp) =>
-                      allowData(emp) == true &&
-                        (authData.searchValue == "" ||
-                          emp.employeeName
-                            .toLowerCase()
-                            .includes(authData.searchValue)) &&
-                        emp.benchStatus == true ? (
-                        <tr style={{ color: getColor(emp.blocked) }}>
-                          <th className="table-align-left">
-                            <BlockEmployee 
-                              id={emp.employeeId}
-                              blocked={emp.blocked}
-                              name={emp.employeeName}
-                            />
+            <div className="bottom">
+              <div className="bottom-left">
+                <SideBar />
+              </div>
+              <div className="bottom-right">
+                <div className="actions-admin">
+                  <p className="employees">EMPLOYEES</p>
+                  <div className="buttons">
+                    <ViewManager />
+                    <button className="button2" onClick={handleReport}>
+                      <i className="fa-solid fa-chart-simple"></i> &nbsp; VIEW REPORT
+                    </button>
+                    <button className="reload" type="button" onClick={handleRefresh}>
+                      <i className="fa-solid fa-rotate-right fa-lg"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="table">
+                  <div className="table-format">
+                    <table className="table">
+                      <thead className="thread1">
+                        <tr className="tableHeader">
+                          <th className="table-align-left" scope="col">
+                            Block
                           </th>
-                          <td
-                            className="pointer-to-profile"
-                            title="View profile"
-                            scope="row"
-                            onClick={() => {
-                              handleViewEmployee();
-                              authData.handleEmpId(emp.employeeId);
-                            }}
-                          >
-                            {emp.employeeName}
-                          </td>
-                          <td className="table-align-left">{emp.email}</td>
-                          <td className="table-align-left">{emp.location}</td>
-                          <td className="table-align-left">
-                            {emp.benchStatus == 0
-                              ? "Removed From Bench"
-                              : `${Math.round(
-                                emp.benchPeriod * 0.032855
-                              )} Months, ${emp.benchPeriod % 30} Days`}
-                          </td>
-                          <td className="table-align-left">
-                            <UploadFile
-                              id={emp.employeeId}
-                              resume={emp.resume}
-                            />
-                            &nbsp;&nbsp;
-                            <DownloadFile
-                              id={emp.employeeId}
-                              name={emp.employeeName}
-                            />
-                          </td>
-
-                          <td className="table-align-left-action">
-                            <UpdateEmployee 
-                              id={emp.employeeId}
-                              name={emp.employeeName}
-                            />
-                            &nbsp; &nbsp;
-                          </td>
+                          <th className="table-align-left" scope="col">
+                            <button
+                              className={getClassNamesFor("employeeName")}
+                              type="button"
+                              onClick={() => requestSort("employeeName")}
+                            >
+                              Name
+                            </button>
+                          </th>
+                          <th className="table-align-left" scope="col">
+                            Email
+                          </th>
+                          <th className="table-align-left" scope="col">
+                            <button
+                              className={getClassNamesFor("location")}
+                              type="button"
+                              onClick={() => requestSort("location")}
+                            >
+                              Location
+                            </button>
+                          </th>
+                          <th className="table-align-left" scope="col">
+                            <button
+                              className={getClassNamesFor("benchPeriod")}
+                              type="button"
+                              onClick={() => requestSort("benchPeriod")}
+                            >
+                              Bench_Aging
+                            </button>
+                          </th>
+                          <th className="table-align-left" scope="col">
+                            Resume
+                          </th>
+                          <th className="table-align-left" scope="col">
+                            Remove
+                          </th>
                         </tr>
-                      ) : (
-                        null
-                      )
-                    )}
-                </tbody>
-              </table>
+                      </thead>
+                      <tbody className="thread1">
+                        {authData.newData &&
+                          authData.newData.map((emp, key=emp.employeeId) =>
+                            allowData(emp,key) == true &&
+                              (authData.searchValue == "" ||
+                                emp.employeeName
+                                  .toLowerCase()
+                                  .includes(authData.searchValue)) &&
+                              emp.benchStatus == true ? (
+                              <tr style={{ color: getColor(emp.blocked) }}>
+                                <th className="table-align-left">
+                                  <BlockEmployee
+                                    id={emp.employeeId}
+                                    blocked={emp.blocked}
+                                    name={emp.employeeName}
+                                  />
+                                </th>
+                                <td
+                                  className="pointer-to-profile"
+                                  title="View profile"
+                                  scope="row"
+                                  onClick={() => {
+                                    handleViewEmployee();
+                                    authData.handleEmpId(emp.employeeId);
+                                  }}
+                                >
+                                  {emp.employeeName}
+                                </td>
+                                <td className="table-align-left">{emp.email}</td>
+                                <td className="table-align-left">{emp.location}</td>
+                                <td className="table-align-left">
+                                  {emp.benchStatus == 0
+                                    ? "Removed From Bench"
+                                    : `${Math.round(
+                                      emp.benchPeriod * 0.032855
+                                    )} Months, ${emp.benchPeriod % 30} Days`}
+                                </td>
+                                <td className="table-align-left">
+                                  <UploadFile
+                                    id={emp.employeeId}
+                                    resume={emp.resume}
+                                  />
+                                  &nbsp;&nbsp;
+                                  <DownloadFile
+                                    id={emp.employeeId}
+                                    name={emp.employeeName}
+                                  />
+                                </td>
+
+                                <td className="table-align-left-action">
+                                  <UpdateEmployee
+                                    id={emp.employeeId}
+                                    name={emp.employeeName}
+                                  />
+                                  &nbsp; &nbsp;
+                                </td>
+                              </tr>
+                            ) : (
+                              null
+                            )
+                          )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    </> 
-    )
-    : (
-      handleUnauthorized()
-    )
+        </>
+      )
+      : (
+        handleUnauthorized()
+      )
   );
 }

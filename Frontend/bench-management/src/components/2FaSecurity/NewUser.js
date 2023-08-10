@@ -7,9 +7,8 @@ import { authenticator } from 'otplib';
 import axios from 'axios';
 import Login from '../Pages/Home/Login';
 const newUser = {
-    otpSecret: authenticator.generateSecret(20)
+    otpSecret: null
 };
-console.log(newUser.otpSecret);
 export default function NewUser() {
     const authData = useContext(AuthContext);
     const navigate = useNavigate();
@@ -17,6 +16,14 @@ export default function NewUser() {
     const [otp, setOTP] = useState("");
     const { REACT_APP_URL } = process.env;
     const [passwordType, setPasswordType] = useState("password")
+
+    const handleEnterKey = (event) => {
+        if(event.key === 'Enter') {
+            event.preventDefault();
+            verifyOTP();
+        }
+    }
+
     function generateQR() {
         // const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
         // authenticator.options = {
@@ -39,7 +46,15 @@ export default function NewUser() {
             }
         });
     }
-    useEffect(generateQR, []);
+    console.log(authData.mfaEnabled);
+    useEffect(() => {
+        if(authData.mfaEnabled == 0) {
+        newUser.otpSecret = authenticator.generateSecret(20);
+        console.log(newUser.otpSecret);
+        generateQR();
+        }
+    },[]);
+
     const verifyOTP = async () => {
         const isValid = authenticator.check(otp, newUser.otpSecret);
         if (!isValid) {
@@ -106,7 +121,9 @@ export default function NewUser() {
                                             maxLength={6}
                                             id='security-code'
                                             value={otp}
+                                            autoFocus="autofocus"
                                             placeholder='Enter six digit code'
+                                            onKeyDown={(e)=> handleEnterKey(e)}
                                             onChange={(e) => setOTP(e.target.value)}
                                         />
                                         <div className='showPassword'>

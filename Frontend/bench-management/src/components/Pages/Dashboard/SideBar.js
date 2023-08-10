@@ -53,8 +53,6 @@ export default function SideBar() {
 
   const handleBUFilter = (e) => {
     const { value, checked } = e.target;
-    let True = true,
-      False = false;
     if (checked) {
       authData.setCheckFilter({
         ...authData.checkFilter,
@@ -78,8 +76,6 @@ export default function SideBar() {
   //Handle Location filters
   const handleLocationFilter = (e) => {
     const { value, checked } = e.target;
-    let True = true,
-      False = false;  
     if (checked) {    
       let locationTempSet=new Set(authData.Locations)
       locationTempSet.add(e.target.name)
@@ -133,8 +129,6 @@ export default function SideBar() {
   //Handle State Filters
   const handleStateFilters = (e) => {
     const { value, checked } = e.target;
-    let True = true,
-      False = false;
     if (checked) {
       if (e.target.name === "notblocked" || e.target.name === "blocked") {
         authData.setCheckFilter({
@@ -179,7 +173,6 @@ export default function SideBar() {
               className="form-range experienceClass"
               min="1"
               max="11"
-              defaultValue="0"
               onChange={(e) => {
                 // authData.setExperienceValue(e.target.value);
                 authData.setReqDto({
@@ -207,7 +200,6 @@ export default function SideBar() {
               className="form-range benchTimeSliderClass"
               min="1"
               max="13"
-              defaultValue="0"
               onChange={(e) => {
                 // authData.setBenchTimeValue(e.target.value);
                 authData.setReqDto({
@@ -242,7 +234,7 @@ export default function SideBar() {
                           defaultChecked={Array.from(authData.buSet).includes(item)}
                           onChange={handleBUFilter.bind(this)}
                         />
-                        <label className="form-check-label" htmlFor={index}>
+                        <label className="form-check-label labelFont" htmlFor={index}>
                           {item = item.replace(/([A-Z])/g, ' $1').trim()}
                         </label>
                       </div>
@@ -269,7 +261,7 @@ export default function SideBar() {
                           defaultChecked={Array.from(authData.Locations).includes(item)}
                           onChange={handleLocationFilter.bind(this)}
                         />
-                        <label className="form-check-label" htmlFor={item}>
+                        <label className="form-check-label labelFont" htmlFor={item}>
                           {item.charAt(0).toUpperCase()+item.slice(1)}
                         </label>
                       </div>
@@ -295,7 +287,7 @@ export default function SideBar() {
                           defaultChecked={Array.from(authData.skillsSet).includes(item)}
                           onChange={handleSkillsFilter.bind(this)}
                         />
-                        <label className="form-check-label" htmlFor={item}>
+                        <label className="form-check-label labelFont" htmlFor={item}>
                           {item.charAt(0).toUpperCase()+item.slice(1)}
                         </label>
                       </div>
@@ -320,7 +312,7 @@ export default function SideBar() {
                       defaultChecked={Array.from(authData.statusSet).includes("notblocked")}
                     />
                     <label
-                      className="form-check-label skillsLabel"
+                      className="form-check-label labelFont"
                       htmlFor="status-1"
                     >
                       Not Blocked
@@ -336,7 +328,7 @@ export default function SideBar() {
                       checked={Array.from(authData.statusSet).includes("blocked")}
                     />
                     <label
-                      className="form-check-label skillsLabel"
+                      className="form-check-label labelFont"
                       htmlFor="status-2"
                     >
                       Blocked

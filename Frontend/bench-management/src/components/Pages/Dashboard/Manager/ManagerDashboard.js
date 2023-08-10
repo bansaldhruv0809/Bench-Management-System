@@ -231,10 +231,9 @@ export default function AdminDashboard() {
                 VIEW REPORT
               </button>
               <button className="reload" onClick={handleRefresh} >
-                <i class="fa-solid fa-rotate-right fa-lg"></i>
+                <i className="fa-solid fa-rotate-right fa-lg"></i>
               </button>
             </div>
-            {/* </div> */}
           </div>
           <div className="table">
             <div className="table-format">
@@ -286,16 +285,16 @@ export default function AdminDashboard() {
                             <BlockEmployee id={emp.employeeId} blocked={emp.blocked} name={emp.employeeName} />
                           </th>
                           <td
-                            className="pointer-to-profile" title="Click on ID to view profile" scope="row" onClick={() => { handleViewEmployee(); authData.handleEmpId(emp.employeeId); }}>
+                            className="pointer-to-profile textFontTable" title="Click on ID to view profile" scope="row" onClick={() => { handleViewEmployee(); authData.handleEmpId(emp.employeeId); }}>
                             {emp.employeeName}
                           </td>
-                          <td className="table-align-left">
+                          <td className="table-align-left textFontTable">
                             {emp.email}
                           </td>
-                          <td className="table-align-left">
+                          <td className="table-align-left textFontTable">
                             {emp.location}
                           </td>
-                          <td className="table-align-left">
+                          <td className="table-align-left textFontTable">
                             {emp.benchStatus == 0
                               ? "Removed From Bench"
                               : `${Math.round(emp.benchPeriod * 0.032855)} Months, ${emp.benchPeriod % 30} Days`}
