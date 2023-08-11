@@ -57,11 +57,11 @@ export default function AdminDashboard() {
     }
   }
   useEffect(() => {
+    console.log('inside useEffect');
     const timeout = setTimeout(() => fetchApis(), 200)
     authData.setBlockStatus(0);
     return () => clearTimeout(timeout);
   }, [authData.file, authData.requestDto, authData.blockStatus, refreshData]);
-
 
   const fetchCountApi = async () => {
     try {
@@ -171,14 +171,14 @@ export default function AdminDashboard() {
     if (color) return 'red';
     return '';
   };
-  console.log("new data " + JSON.stringify(authData.newData))
+  // console.log("new data " + JSON.stringify(authData.newData))
 
   //Sorting
   const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = React.useState(config);
     // console.log("aaaaaaaaaaaa"+JSON.stringify(items));
     const sortedItems = React.useMemo(() => {
-      let sortableItems = items;
+      let sortableItems = items; 
       if (sortConfig !== null) {
         sortableItems.sort((a, b) => {
           if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -273,7 +273,7 @@ export default function AdminDashboard() {
                 <tbody className="thread1">
                   {
                   authData.newData &&
-                    authData.newData.map((emp) =>
+                    authData.newData.map((emp, key = emp.employeeId) =>
                       allowData(emp) == true && checkAssignedLocation(emp) &&
                         ((authData.searchValue == "" ||
                           emp.employeeName
@@ -282,7 +282,7 @@ export default function AdminDashboard() {
                         <tr style={{ color: getColor(emp.blocked) }}>
                           {/* <th className='pointer-to-profile' title="Click on ID to view profile" scope="row" onClick={() => { handleViewEmployee(); authData.handleEmpId(emp.employeeId); }} >{emp.employeeId}</th> */}
                           <th className="table-align-left">
-                            <BlockEmployee id={emp.employeeId} blocked={emp.blocked} name={emp.employeeName} />
+                            <BlockEmployee id={emp.employeeId} blocked={emp.blocked} name={emp.employeeName} key = {emp.employeeId} />
                           </th>
                           <td
                             className="pointer-to-profile textFontTable" title="Click on ID to view profile" scope="row" onClick={() => { handleViewEmployee(); authData.handleEmpId(emp.employeeId); }}>

@@ -11,29 +11,28 @@ export default function Login() {
   const google = window.google;
   const { REACT_APP_GOOGLE_CLIENT_ID, REACT_APP_URL } = process.env;
   const navigate = useNavigate();
-  
+
   function handleNotVerfied() {
     alert("Sorry you are not authorized to access!!");
   }
 
   useEffect(() => {
-    (
+    if (authData.isAuthentication)
       authData.mfaEnabled === "0" ? (
-        navigate("/setup2fa", {replace:true})
+        navigate("/setup2fa", { replace: true })
       )
         : (
           authData.otpVerify === false ? (
-            navigate("/verify2fa", {replace:true})
+            navigate("/verify2fa", { replace: true })
           )
             : (
               authData.currentRole === "admin" ? (
-                navigate("/admin", {replace:true})
+                navigate("/admin", { replace: true })
               )
-                : navigate("/manager", {replace:true})
+                : navigate("/manager", { replace: true })
             )
         )
-    )
-  },[authData.isAuthentication]);
+  }, [authData.isAuthentication]);
 
   function handleCallbackResponse(response) {
     // console.log(response.credential); jwt
@@ -58,21 +57,20 @@ export default function Login() {
         }
       });
   }
-  
+
   useEffect(() => {
-    google?.accounts.id.initialize({
-      client_id: `${REACT_APP_GOOGLE_CLIENT_ID}`, // add client id in .env file
-      ux_mode: "popup",
-      callback: handleCallbackResponse
-    });
-  },[]);
-    
-  useEffect(() => {
-    google?.accounts.id.renderButton(
-      document.getElementById("loginButton"),
-      { theme: "outline", size: "large", shape: "pill", width: "350px" }
-    );
-    google?.accounts.id.prompt();
+    if (authData.isAuthentication === false) {
+      google?.accounts.id.initialize({
+        client_id: `${REACT_APP_GOOGLE_CLIENT_ID}`, // add client id in .env file
+        ux_mode: "popup",
+        callback: handleCallbackResponse
+      });
+      google?.accounts.id.renderButton(
+        document.getElementById("loginButton"),
+        { theme: "outline", size: "large", shape: "pill", width: "350px" }
+      );
+      google?.accounts.id.prompt();
+    }
   }, []);
 
   return (
